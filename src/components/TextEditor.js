@@ -1,17 +1,20 @@
+// components/TextEditor.js
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function TextEditor() {
-    const [title, setTitle] = useState(""); // State-variabel för titel
-    const [content, setContent] = useState(""); // State-variabel för innehåll
-    const [documents, setDocuments] = useState([]); // För att lagra hämtade dokument
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
         async function fetchDocuments() {
             try {
-                const response = await fetch('http://localhost:5000/posts'); // Se till att URL:en är korrekt
+                const response = await fetch('http://localhost:5000/posts');
                 if (response.ok) {
                     const docs = await response.json();
-                    setDocuments(docs); // Sätt de hämtade dokumenten i state
+                    console.log(docs); // Kontrollera att varje dokument har ett id
+                    setDocuments(docs);
                 } else {
                     console.error('Error fetching documents:', response.statusText);
                 }
@@ -19,27 +22,32 @@ function TextEditor() {
                 console.error('Error:', error);
             }
         }
-
-        fetchDocuments(); // Anropa funktionen för att hämta dokument
-    }, []); // Tom array innebär att effekten bara körs en gång när komponenten laddas
+    
+        fetchDocuments();
+    }, []);
+    
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Förhindra att sidan laddas om
-
+        e.preventDefault();
+    
         try {
             const response = await fetch('http://localhost:5000/posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ title, content }), // Skapa ett objekt med dokumentets data
+                body: JSON.stringify({ title, content }),
             });
-
+    
             if (response.ok) {
-                const newDoc = await response.json();
-                console.log('Inserted document ID:', newDoc.id);
-                setDocuments(prevDocs => [...prevDocs, { id: newDoc.id, title, content }]); // Lägg till det nya dokumentet i state
-                setTitle(""); // Rensa fälten efter inlämning
+                const newDoc = await response.json(); // Fånga den nya dokumentinformationen
+                
+                // Kontrollera att insertedId finns och lägg till det i dokumentlistan
+                setDocuments(prevDocs => [
+                    ...prevDocs,
+                    { _id: newDoc.insertedId, title, content } // Använd _id från response
+                ]);
+                setTitle("");
                 setContent("");
             } else {
                 console.error('Error saving document:', response.statusText);
@@ -48,6 +56,7 @@ function TextEditor() {
             console.error('Error:', error);
         }
     };
+    
 
     return (
         <>
@@ -76,9 +85,10 @@ function TextEditor() {
                 <h1>Skapade Dokument</h1>
                 {documents.length > 0 ? (
                     documents.map(doc => (
-                        <div key={doc.id}>
+                        <div key={doc._id}> {/* Använd _id som nyckel */}
                             <h2>{doc.title}</h2>
                             <p>{doc.content}</p>
+                            <Link to={`/documents/${doc._id}`}>Visa dokument</Link> {/* Använd doc._id för att inkludera rätt ID */}
                         </div>
                     ))
                 ) : (
