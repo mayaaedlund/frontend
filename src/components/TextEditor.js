@@ -13,7 +13,7 @@ function TextEditor() {
                 const response = await fetch('http://localhost:5000/posts');
                 if (response.ok) {
                     const docs = await response.json();
-                    console.log(docs); // Kontrollera att varje dokument har ett id
+                    console.log(docs);
                     setDocuments(docs);
                 } else {
                     console.error('Error fetching documents:', response.statusText);
@@ -40,12 +40,11 @@ function TextEditor() {
             });
     
             if (response.ok) {
-                const newDoc = await response.json(); // Fånga den nya dokumentinformationen
+                const newDoc = await response.json();
                 
-                // Kontrollera att insertedId finns och lägg till det i dokumentlistan
                 setDocuments(prevDocs => [
                     ...prevDocs,
-                    { _id: newDoc.insertedId, title, content } // Använd _id från response
+                    { _id: newDoc.insertedId, title, content }
                 ]);
                 setTitle("");
                 setContent("");

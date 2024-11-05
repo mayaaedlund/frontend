@@ -8,11 +8,10 @@ function App() {
   return (
       <Router>
           <div className="App">
-              <h1>Välkommen</h1>
-              <p>Skapa dokument nedan</p>
+              <h1>Min app</h1>
               <Routes>
                   <Route path="/" element={<TextEditor />} />
-                  <Route path="/documents/:id" element={<DocumentView />} /> {/* Lägg till route för DocumentView */}
+                  <Route path="/documents/:id" element={<DocumentView />} />
               </Routes>
           </div>
       </Router>
