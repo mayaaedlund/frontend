@@ -29,7 +29,7 @@ function DocumentView() {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const { title, content } = e.target.elements;
+        const { title, content, email } = e.target.elements;
     
         try {
             const response = await fetch(`http://localhost:5000/posts/update`, {
@@ -41,6 +41,7 @@ function DocumentView() {
                     id: document._id,
                     title: title.value,
                     content: content.value,
+                    email: email.value,
                 }),
             });
     
@@ -69,6 +70,14 @@ function DocumentView() {
 
                 <label htmlFor="content">Innehåll</label>
                 <textarea name="content" required defaultValue={document.content}></textarea>
+
+                <label htmlFor="email">E-post</label>
+                <input
+                    type="email"
+                    name="email"
+                    defaultValue={document.email}
+                    required
+                />
 
                 <input type="submit" value="Uppdatera" />
             </form>
