@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 //import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ function TextEditor() {
     const [username, setUsername] = useState("");
     const [documents, setDocuments] = useState([]);
     //const navigate = useNavigate();
+
 
     // Hämta användarnamn från sessionStorage när komponenten mountas
     useEffect(() => {
@@ -135,7 +136,7 @@ function TextEditor() {
                     <textarea
                         id="content"
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
+                        onChange={(e) => {setContent(e.target.value)}}
                         required
                     ></textarea>
 

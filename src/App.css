@@ -5,6 +5,22 @@
   padding: 20px;
 }
 
+
+
+button {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #777;
+}
+
+
 form {
   display: flex;
   flex-direction: column;
@@ -52,41 +68,3 @@ nav a:hover {
   color: #ddd;
 }
 
-/* Mobilanpassning: För skärmar som är max 600px breda */
-@media (max-width: 600px) {
-  .App {
-    max-width: 100%; /* Gör att appen fyller hela skärmen på mobiler */
-    padding: 10px;   /* Minska lite på padding för små skärmar */
-  }
-
-  nav ul {
-    flex-direction: column; /* Länkarna staplas vertikalt på små skärmar */
-    align-items: center;    /* Centrerar länkarna i navbaren */
-    padding-left: 0;
-  }
-
-  nav li {
-    margin-bottom: 10px;  /* Lägg till mellanrum mellan länkarna */
-  }
-
-  input[type="text"],
-  textarea {
-    font-size: 16px;  /* Större text för användarvänlighet på små skärmar */
-  }
-
-  button {
-    font-size: 16px;  /* Större knapptext på mobiler */
-    padding: 12px;    /* Större knapp för bättre användarupplevelse */
-  }
-}
-
-/* Extra små skärmar (t.ex. mindre än 400px breda) */
-@media (max-width: 400px) {
-  nav ul {
-    gap: 10px; /* Minska gapet mellan länkarna */
-  }
-
-  button {
-    font-size: 14px; /* Minska knapptexten ännu mer på riktigt små skärmar */
-  }
-}
